@@ -21,6 +21,7 @@ class Signup extends Component {
       .catch(err => console.log(err));
   }
 
+  
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
