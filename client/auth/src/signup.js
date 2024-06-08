@@ -16,7 +16,7 @@ class Signup extends Component {
     e.preventDefault();
     const { username, email, password } = this.state;
 
-    axios.post('http://localhost:3001/register', { name: username, email, password })
+    axios.post('https://authentication-api-drab.vercel.app/register', { name: username, email, password })
       .then(result => console.log(result))
       .catch(err => console.log(err));
   }
