@@ -26,6 +26,10 @@ mongoose.connect(process.env.MONGO_URI)
         console.log(`Error connecting to MongoDB: ${error}`);
     });
 
+app.get("/",(req,res)=>{
+    res.json("hello")
+})
+
 // Register route
 app.post('/register', (req, res) => {
     peopleSchema.create(req.body)
