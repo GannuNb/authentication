@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const peopleSchema = require('./models/Peoples'); // Import the model
+const peopleSchema = require('./models/People'); // Ensure this path and case are correct
 
 // Load environment variables from .env file
 dotenv.config();
@@ -11,10 +11,16 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://authentication-frontend-psi.vercel.app/',
+    origin: 'https://authentication-frontend-psi.vercel.app/', // Adjust as necessary
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
+
+// Check if MONGO_URI is defined
+if (!process.env.MONGO_URI) {
+    console.error('MONGO_URI environment variable is not defined');
+    process.exit(1); // Exit the process if MONGO_URI is not defined
+}
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -32,6 +38,8 @@ app.get("/", (req, res) => {
 
 // Register route
 app.post('/register', (req, res) => {
+    console.log('Register request received:', req.body); // Log the request payload
+
     peopleSchema.create(req.body)
         .then(person => res.json(person))
         .catch(err => {
