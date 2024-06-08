@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const peopleSchema = require('./models/peoples'); // Import the model
+const peopleSchema = require('./models/Peoples'); // Import the model
 
 // Load environment variables from .env file
 dotenv.config();
