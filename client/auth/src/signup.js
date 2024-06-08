@@ -17,7 +17,7 @@ class Signup extends Component {
     const { username, email, password } = this.state;
 
     
-    axios.post('https://authentication-frontend-psi.vercel.app/register', { name: username, email, password })
+    axios.post('https://authentication-api-drab.vercel.app/register', { name: username, email, password })
       .then(result => console.log(result))
       .catch(err => console.log(err));
   }
