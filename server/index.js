@@ -2,18 +2,21 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const peopleSchema = require('./models/Peoples'); // Ensure this path and case are correct
+const People = require('./models/Peoples'); // Ensure this path and case are correct
 
 // Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 
+// Middleware to parse JSON bodies
 app.use(express.json());
+
+// CORS configuration
 app.use(cors({
-    origin: 'https://authentication-frontend-psi.vercel.app/', // Adjust as necessary
+    origin: 'https://authentication-frontend-psi.vercel.app', // Ensure this matches your frontend URL exactly
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+    credentials: true // Allow credentials (cookies, authorization headers, etc.)
 }));
 
 // Check if MONGO_URI is defined
@@ -32,6 +35,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
         process.exit(1); // Exit the process if MongoDB connection fails
     });
 
+// Root route for health check
 app.get("/", (req, res) => {
     res.json("hello");
 });
@@ -40,7 +44,7 @@ app.get("/", (req, res) => {
 app.post('/register', (req, res) => {
     console.log('Register request received:', req.body); // Log the request payload
 
-    peopleSchema.create(req.body)
+    People.create(req.body)
         .then(person => res.json(person))
         .catch(err => {
             console.error('Registration error:', err); // Log the error
@@ -54,7 +58,7 @@ app.post('/login', (req, res) => {
 
     console.log('Login request received:', email, password); // Log the request payload
 
-    peopleSchema.findOne({ email: email })
+    People.findOne({ email: email })
         .then(user => {
             console.log('User found:', user); // Log the retrieved user data
 
