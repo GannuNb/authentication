@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://authentication-frontend-mu.vercel.app', // Adjust as necessary
+    origin: 'https://authentication-frontend-mu.vercel.app/', // Adjust as necessary
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
