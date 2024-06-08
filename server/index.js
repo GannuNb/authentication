@@ -16,31 +16,30 @@ app.use(cors({
     credentials: true
 }));
 
-
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('MongoDB Connected Successfully!');
     })
     .catch((error) => {
-        console.log(`Error connecting to MongoDB: ${error}`);
+        console.error(`Error connecting to MongoDB: ${error}`);
+        process.exit(1); // Exit the process if MongoDB connection fails
     });
 
-app.get("/",(req,res)=>{
-    res.json("hello")
-})
+app.get("/", (req, res) => {
+    res.json("hello");
+});
 
 // Register route
 app.post('/register', (req, res) => {
     peopleSchema.create(req.body)
         .then(person => res.json(person))
         .catch(err => {
-            console.error(err); // Log the error
+            console.error('Registration error:', err); // Log the error
             res.status(400).json(err);
         });
 });
 
-// Login route
 // Login route
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -67,8 +66,8 @@ app.post('/login', (req, res) => {
         });
 });
 
-
 // Start the server
-app.listen(3001, () => {
-    console.log('Server started and running @ 3001');
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server started and running on port ${PORT}`);
 });
