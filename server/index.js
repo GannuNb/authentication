@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const peopleSchema = require('./models/People'); // Ensure this path and case are correct
+const peopleSchema = require('./models/Peoples'); // Ensure this path and case are correct
 
 // Load environment variables from .env file
 dotenv.config();
