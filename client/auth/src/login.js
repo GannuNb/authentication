@@ -18,7 +18,7 @@ class Login extends Component {
 
     console.log('Submitting login:', email, password); // Log form submission data
 
-    axios.post('http://localhost:3001/login', { email, password })
+    axios.post('https://authentication-back.vercel.app/login', { email, password })
       .then(result => {
         console.log(result);
         // Redirect to home page after successful login
